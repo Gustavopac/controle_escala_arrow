@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Pesquisa de Satisfação - Arrow</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root {
+    --primary-color: #ff6c00;
+    --primary-hover: #e55b00;
+    --text-color: #333;
+    --bg-color: #f9f9f9;
+    --card-bg: #ffffff;
+    --border-color: #e0e0e0;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.header {
+    background: var(--primary-color);
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.header img {
+    max-width: 180px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+}
+
+.container {
+    max-width: 1000px;
+    background: var(--card-bg);
+    margin: 40px auto;
+    padding: 60px 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+}
+
+h1 {
+    color: var(--primary-color);
+    font-size: 26px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin: 20px 0 8px;
+    font-size: 16px;
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1.5px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 15px;
+    background: #fafafa;
+    transition: border 0.3s;
+}
+
+input:focus, textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    background: #fff;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.rating-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.rating-options input[type="radio"] {
+    display: none;
+}
+
+.rating-options label {
+    flex: 1;
+    text-align: center;
+    padding: 12px;
+    border: 1.5px solid var(--border-color);
+    border-radius: 10px;
+    cursor: pointer;
+    background: #fafafa;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    min-width: 100px;
+    font-size: 15px;
+}
+
+.rating-options input[type="radio"]:checked + label {
+    background: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+    font-weight: bold;
+}
+
+.rating-options label:hover {
+    background: var(--primary-hover);
+    color: white;
+    border-color: var(--primary-hover);
+}
+
+button {
+    width: 100%;
+    margin-top: 40px;
+    background: var(--primary-color);
+    color: white;
+    padding: 18px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: var(--primary-hover);
+}
+
+#agradecimento {
+    display: none;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 40px;
+    background: var(--card-bg);
+    text-align: center;
+    font-size: 24px;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 30px 20px;
+    }
+    h1 {
+        font-size: 22px;
+    }
+    label {
+        font-size: 15px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <img src="https://uploaddeimagem.com.br/imagens/sualogo.png" alt="Arrow Logística Integrada">
+</div>
+
+<div class="container" id="formulario">
+    <h1>Pesquisa de Satisfação</h1>
+    <form id="arrowForm" action="#" method="post">
+
+        <label>Nome Completo (opcional):</label>
+        <input type="text" name="nome">
+
+        <label>Cargo/Função (opcional):</label>
+        <input type="text" name="cargo">
+
+        <label>Nome da Empresa *</label>
+        <input type="text" name="empresa" required>
+
+        <label>Contato e-mail/telefone (opcional):</label>
+        <input type="text" name="contato">
+
+        <label>Como você avalia o atendimento prestado pela nossa equipe?</label>
+        <div class="rating-options">
+            <input type="radio" id="p5-1" name="p5" value="Péssimo" required><label for="p5-1">Péssimo</label>
+            <input type="radio" id="p5-2" name="p5" value="Ruim"><label for="p5-2">Ruim</label>
+            <input type="radio" id="p5-3" name="p5" value="Regular"><label for="p5-3">Regular</label>
+            <input type="radio" id="p5-4" name="p5" value="Bom"><label for="p5-4">Bom</label>
+            <input type="radio" id="p5-5" name="p5" value="Ótimo"><label for="p5-5">Ótimo</label>
+        </div>
+
+        <label>As informações a respeito do serviço foram repassadas de maneira clara?</label>
+        <div class="rating-options">
+            <input type="radio" id="p6-1" name="p6" value="Confusas" required><label for="p6-1">Confusas</label>
+            <input type="radio" id="p6-2" name="p6" value="Pouco claras"><label for="p6-2">Pouco claras</label>
+            <input type="radio" id="p6-3" name="p6" value="Regular"><label for="p6-3">Regular</label>
+            <input type="radio" id="p6-4" name="p6" value="Claras"><label for="p6-4">Claras</label>
+            <input type="radio" id="p6-5" name="p6" value="Muito claras"><label for="p6-5">Muito claras</label>
+        </div>
+
+        <label>Suas dúvidas foram sanadas conforme o esperado?</label>
+        <div class="rating-options">
+            <input type="radio" id="p7-1" name="p7" value="Não sanadas" required><label for="p7-1">Não sanadas</label>
+            <input type="radio" id="p7-2" name="p7" value="Parcialmente"><label for="p7-2">Parcialmente</label>
+            <input type="radio" id="p7-3" name="p7" value="Regular"><label for="p7-3">Regular</label>
+            <input type="radio" id="p7-4" name="p7" value="Sanadas"><label for="p7-4">Sanadas</label>
+            <input type="radio" id="p7-5" name="p7" value="Sanadas rapidamente"><label for="p7-5">Sanadas rapidamente</label>
+        </div>
+
+        <label>Como você avalia o valor investido no serviço contratado?</label>
+        <div class="rating-options">
+            <input type="radio" id="p8-1" name="p8" value="Muito ruim" required><label for="p8-1">Muito ruim</label>
+            <input type="radio" id="p8-2" name="p8" value="Ruim"><label for="p8-2">Ruim</label>
+            <input type="radio" id="p8-3" name="p8" value="Razoável"><label for="p8-3">Razoável</label>
+            <input type="radio" id="p8-4" name="p8" value="Bom"><label for="p8-4">Bom</label>
+            <input type="radio" id="p8-5" name="p8" value="Ótimo"><label for="p8-5">Ótimo</label>
+        </div>
+
+        <label>Nosso serviço está abaixo, acima, ou atende às suas expectativas?</label>
+        <div class="rating-options">
+            <input type="radio" id="p9-1" name="p9" value="Muito abaixo" required><label for="p9-1">Muito abaixo</label>
+            <input type="radio" id="p9-2" name="p9" value="Abaixo"><label for="p9-2">Abaixo</label>
+            <input type="radio" id="p9-3" name="p9" value="Na média"><label for="p9-3">Na média</label>
+            <input type="radio" id="p9-4" name="p9" value="Atende bem"><label for="p9-4">Atende bem</label>
+            <input type="radio" id="p9-5" name="p9" value="Superou"><label for="p9-5">Superou</label>
+        </div>
+
+        <label>Como você avalia o tempo que levou para o serviço ser concluído?</label>
+        <div class="rating-options">
+            <input type="radio" id="p10-1" name="p10" value="Demorado" required><label for="p10-1">Demorado</label>
+            <input type="radio" id="p10-2" name="p10" value="Tempo esperado"><label for="p10-2">Tempo esperado</label>
+            <input type="radio" id="p10-3" name="p10" value="Ágil"><label for="p10-3">Ágil</label>
+            <input type="radio" id="p10-4" name="p10" value="Muito rápido"><label for="p10-4">Muito rápido</label>
+        </div>
+
+        <label>O quanto você nos recomendaria para um amigo ou familiar?</label>
+        <div class="rating-options">
+            <input type="radio" id="p11-1" name="p11" value="Não recomendaria" required><label for="p11-1">Não recomendaria</label>
+            <input type="radio" id="p11-2" name="p11" value="Talvez"><label for="p11-2">Talvez</label>
+            <input type="radio" id="p11-3" name="p11" value="Recomendaria"><label for="p11-3">Recomendaria</label>
+            <input type="radio" id="p11-4" name="p11" value="Recomendaria muito"><label for="p11-4">Recomendaria muito</label>
+        </div>
+
+        <label>Valorizamos muito a sua opinião, deixe seu feedback:</label>
+        <textarea name="feedback" required></textarea>
+
+        <button type="submit">Enviar Avaliação</button>
+    </form>
+</div>
+
+<div id="agradecimento">
+    <h1>✅ Agradecemos pela avaliação!</h1>
+    <p>Seu feedback foi registrado com sucesso.</p>
+</div>
+
+<script>
+const form = document.querySelector('#arrowForm');
+const formulario = document.getElementById('formulario');
+const agradecimento = document.getElementById('agradecimento');
+const webhookUrl = 'https://script.google.com/macros/s/AKfycbyKd2zh_qWbHH-TrFnEVZCyBmvRvuPRihIFJra-CNDkSzRt3FcpcHdvOrT7oNotD9xs/exec';
+
+form.addEventListener('submit', async function(event){
+    event.preventDefault();
+    const formData = new FormData(form);
+    const jsonData = {};
+    formData.forEach((value, key) => jsonData[key] = value);
+
+    const submitButton = form.querySelector('button');
+    submitButton.textContent = 'Enviando...';
+    submitButton.disabled = true;
+
+    try {
+        const response = await fetch(webhookUrl, {
+            method: 'POST',
+            body: JSON.stringify(jsonData),
+            headers: {'Content-Type': 'application/json'}
+        });
+
+        if(response.ok){
+            formulario.style.display = 'none';
+            agradecimento.style.display = 'block';
+        } else {
+            alert('❌ Erro ao enviar. Tente novamente.');
+        }
+    } catch (error) {
+        alert('❌ Falha na conexão. Tente novamente.');
+    } finally {
+        submitButton.textContent = 'Enviar Avaliação';
+        submitButton.disabled = false;
+        form.reset();
+    }
+});
+</script>
+
+</body>
+</html>
