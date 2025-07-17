@@ -3,96 +3,115 @@
 <head>
   <meta charset="UTF-8">
   <title>Controle de Escala - Arrow</title>
+  
+  <!-- Fonts e Firebase -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+  <!-- Choices.js -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
   <style>
-    :root {
-      --primary: #F46E00;
-      --background: #fefefe;
-      --text: #333;
-      --light-gray: #f5f5f5;
-    }
-    * {
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-    body {
-      margin: 0;
-      background: var(--background);
-      color: var(--text);
-      font-size: 14px;
-    }
-    header {
-      display: flex;
-      align-items: center;
-      padding: 15px;
-    }
-    header img {
-      height: 60px;
-    }
-    h1 {
-      text-align: center;
-      color: var(--primary);
-      margin: 15px 0;
-      font-size: 22px;
-    }
-    .filtros {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 15px;
-    }
-    select, button {
-      padding: 8px;
-      font-size: 14px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      cursor: pointer;
-    }
-    button {
-      background: var(--primary);
-      color: white;
-      border: none;
-    }
-    table {
-      width: 95%;
-      margin: 0 auto 30px auto;
-      border-collapse: collapse;
-      background: white;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-      border-radius: 5px;
-      overflow: hidden;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: center;
-    }
-    th {
-      background: var(--primary);
-      color: white;
-      font-weight: 600;
-      position: sticky;
-      top: 0;
-      z-index: 1;
-    }
-    .checkbox-cell input {
-      transform: scale(1.3);
-    }
-    .totais {
-      font-weight: bold;
-      background: var(--light-gray);
-    }
-    footer {
-      text-align: center;
-      padding: 15px;
-      font-size: 12px;
-      color: #777;
-    }
-  </style>
+:root {
+  --primary: #F46E00;
+  --background: #fefefe;
+  --text: #333;
+  --light-gray: #f5f5f5;
+}
+
+* { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+body { margin: 0; background: var(--background); color: var(--text); font-size: 14px; }
+
+header { display: flex; align-items: center; padding: 15px; }
+header img { height: 60px; }
+
+h1 { text-align: center; color: var(--primary); margin: 15px 0; font-size: 22px; }
+
+.filtros {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 15px;
+  position: relative;
+  z-index: 1000;
+}
+
+select, button {
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+button {
+  background: var(--primary);
+  color: white;
+  border: none;
+}
+
+table {
+  width: 95%;
+  margin: 0 auto 30px auto;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.checkbox-cell input {
+  transform: scale(1.3);
+}
+
+.totais {
+  font-weight: bold;
+  background: var(--light-gray);
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  font-size: 12px;
+  color: #777;
+}
+.choices {
+  width: 200px !important; /* ajuste o tamanho conforme preferir */
+}
+
+.choices__inner {
+  min-height: 40px;
+  font-size: 14px;
+}
+
+.choices__list--dropdown, .choices__list[aria-expanded] {
+  width: 220px !important;
+  white-space: nowrap;
+}
+
+</style>
+
 </head>
+
 <body>
 
 <header>
@@ -103,26 +122,22 @@
 
 <div class="filtros">
   <select id="ano" onchange="gerarTabela()">
-    <option>2024</option>
-    <option selected>2025</option>
-    <option>2026</option>
-    <option>2027</option>
+    <option>2024</option><option selected>2025</option><option>2026</option><option>2027</option>
   </select>
 
   <select id="mes" onchange="gerarTabela()">
-    <option value="0">Janeiro</option>
-    <option value="1">Fevereiro</option>
-    <option value="2">Março</option>
-    <option value="3">Abril</option>
-    <option value="4">Maio</option>
-    <option value="5">Junho</option>
-    <option value="6">Julho</option>
-    <option value="7">Agosto</option>
-    <option value="8">Setembro</option>
-    <option value="9">Outubro</option>
-    <option value="10">Novembro</option>
-    <option value="11">Dezembro</option>
+    <option value="0">Janeiro</option><option value="1">Fevereiro</option><option value="2">Março</option>
+    <option value="3">Abril</option><option value="4">Maio</option><option value="5">Junho</option>
+    <option value="6">Julho</option><option value="7">Agosto</option><option value="8">Setembro</option>
+    <option value="9">Outubro</option><option value="10">Novembro</option><option value="11">Dezembro</option>
   </select>
+
+  <select id="diaSemana" onchange="aplicarFiltros()">
+  <option value="">Todos os dias</option>
+  <option value="uteis">Dias Úteis (Seg-Sex)</option>
+  <option value="fds">Final de Semana (Sáb-Dom)</option>
+  </select>
+
 
   <select id="semana" onchange="aplicarFiltros()">
     <option value="">Semana (todas)</option>
@@ -142,6 +157,17 @@
 <footer>&copy; Arrow Logística Integrada</footer>
 
 <script>
+// Choices.js inicialização apenas no diaSemana
+let choicesDiaSemana;
+window.addEventListener('load', () => {
+  choicesDiaSemana = new Choices('#diaSemana', {
+    removeItemButton: true,
+    shouldSort: false,
+    placeholder: true,
+    placeholderValue: 'Selecione dias',
+    searchEnabled: false
+  });
+});
 const firebaseConfig = {
   apiKey: "AIzaSyBkFbt9TodmCLHA9IVXkMuSf3EWuWc12Ik",
   authDomain: "controle-escala-arrow.firebaseapp.com",
@@ -197,40 +223,40 @@ function carregarEstado() {
     });
   });
 }
-
 function gerarTabela() {
   const eqSelect = document.getElementById('equipe');
   const colSelect = document.getElementById('colaborador');
   eqSelect.innerHTML = '<option value="">Equipe (todas)</option>';
   colSelect.innerHTML = '<option value="">Colaborador (todos)</option>';
-
+  
   [...new Set(colaboradores.map(c => c.equipe))].forEach(eq => {
     eqSelect.innerHTML += `<option value="${eq}">${eq}</option>`;
   });
   colaboradores.forEach((col, idx) => {
     colSelect.innerHTML += `<option value="${idx}">${col.nome}</option>`;
   });
-
+  
   const ano = parseInt(document.getElementById('ano').value);
   const mes = parseInt(document.getElementById('mes').value);
   const dias = new Date(ano, mes + 1, 0).getDate();
-
+  
   let html = '<table><thead><tr><th>Nome</th><th>Equipe</th>';
   for (let d = 1; d <= dias; d++) {
     const data = new Date(ano, mes, d);
     const ds = data.toLocaleDateString('pt-BR', { weekday: 'short' });
-    html += `<th data-dia="${d}">${String(d).padStart(2, '0')}<br>${ds}</th>`;
+    html += `<th data-dia="${d}">${String(d).padStart(2,'0')}<br>${ds}</th>`;
   }
   html += '<th>Total</th></tr></thead><tbody>';
-
+  
   colaboradores.forEach((col, idx) => {
-    html += `<tr class="linha-${idx}" data-equipe="${col.equipe}" data-idx="${idx}"><td>${col.nome}</td><td>${col.equipe}</td>`;
+    html += `<tr class="linha-${idx}" data-equipe="${col.equipe}" data-idx="${idx}">
+    <td>${col.nome}</td><td>${col.equipe}</td>`;
     for (let d = 1; d <= dias; d++) {
-      html += `<td data-dia="${d}"><input type="checkbox" onchange="atualizarTotal(${idx}); salvarEstado()"></td>`;
+      html += `<td data-dia="${d}"><input type="checkbox" onchange="atualizarTotal(${idx});salvarEstado()"></td>`;
     }
     html += `<td id="total-${idx}" class="totais">0</td></tr>`;
   });
-
+  
   html += '</tbody></table>';
   document.getElementById('tabela').innerHTML = html;
   carregarEstado();
@@ -247,6 +273,7 @@ function aplicarFiltros() {
   const semana = document.getElementById('semana').value;
   const equipe = document.getElementById('equipe').value;
   const colaborador = document.getElementById('colaborador').value;
+  const diaSemana = choicesDiaSemana.getValue(true); // Pegue o valor como string
 
   const ano = parseInt(document.getElementById('ano').value);
   const mes = parseInt(document.getElementById('mes').value);
@@ -260,13 +287,26 @@ function aplicarFiltros() {
 
   document.querySelectorAll('th[data-dia], td[data-dia]').forEach(cell => {
     const dia = parseInt(cell.getAttribute('data-dia'));
+    const date = new Date(ano, mes, dia);
+    const diaSemanaAtual = date.getDay(); // 0=Domingo, 1=Segunda...
+
+    let semanaOk = true;
     if (semana) {
       const min = (semana - 1) * 7 + 1;
       const max = semana == 4 ? diasNoMes : semana * 7;
-      cell.style.display = (dia >= min && dia <= max) ? '' : 'none';
-    } else {
-      cell.style.display = '';
+      semanaOk = dia >= min && dia <= max;
     }
+
+    let diaOk = true;
+    if (diaSemana.length) {
+      if (diaSemana.includes("uteis")) {
+        diaOk = diaSemanaAtual >= 1 && diaSemanaAtual <= 5;
+      } else if (diaSemana.includes("fds")) {
+        diaOk = diaSemanaAtual === 0 || diaSemanaAtual === 6;
+      }
+    }
+
+    cell.style.display = semanaOk && diaOk ? '' : 'none';
   });
 }
 
@@ -274,11 +314,11 @@ function limparFiltros() {
   document.getElementById('semana').value = "";
   document.getElementById('equipe').value = "";
   document.getElementById('colaborador').value = "";
+  choicesDiaSemana.removeActiveItems();
   aplicarFiltros();
 }
 
 window.onload = gerarTabela;
 </script>
-
 </body>
 </html>
