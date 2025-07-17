@@ -282,7 +282,7 @@ function aplicarFiltros() {
     const dia = parseInt(cell.getAttribute('data-dia'));
     if (semana) {
       const min = (semana - 1) * 7 + 1;
-      const max = semana == 4 ? dias : semana * 7;
+      const max = semana * 7;
       cell.style.display = (dia >= min && dia <= max) ? '' : 'none';
     } else {
       cell.style.display = '';
